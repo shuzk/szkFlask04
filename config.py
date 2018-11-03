@@ -3,7 +3,7 @@ import redis
 
 class Config(object):
     """工程配置信息"""
-    DEBUG = True
+    # DEBUG = True
     SECRET_KEY = "UAXpxgekKf7reqOqHwKPTnJfBwJtA0bd6HkvOiLmGiMm7IAGskyaDpHrSS23OR/P"
 
     # 数据库的配置信息
@@ -29,3 +29,8 @@ class DevelopementConfig(Config):
 class ProductionConfig(Config):
     """生产模式下的配置"""
     pass
+
+config = {
+    "development": DevelopementConfig,
+    "production": ProductionConfig
+}
