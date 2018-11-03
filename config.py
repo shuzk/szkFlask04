@@ -1,3 +1,6 @@
+import logging
+# from logging.handlers import RotatingFileHandler
+
 import redis
 
 
@@ -19,6 +22,8 @@ class Config(object):
     SESSION_USE_SIGNER = True  # 让cookie中的session_id被加密签名处理
     SESSION_REDIS = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT)  # 使用redis的实例
     PERMANENT_SESSION_LIFETIME = 86400  # session的有效期，单位是秒
+    # 默认日志等级
+    LOG_LEVEL = logging.DEBUG
 
 
 class DevelopementConfig(Config):
@@ -28,7 +33,7 @@ class DevelopementConfig(Config):
 
 class ProductionConfig(Config):
     """生产模式下的配置"""
-    pass
+    LOG_LEVEL = logging.DEBUG
 
 config = {
     "development": DevelopementConfig,
