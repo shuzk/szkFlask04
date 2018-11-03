@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
 app = Flask(__name__)
+
 app.config.from_object(Config)  # 配置
 db = SQLAlchemy(app)  # 配置数据库
 redis_store = redis.StrictRedis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)  # 配置redis
