@@ -7,9 +7,9 @@ import redis
 class Config(object):
     """工程配置信息"""
     # DEBUG = True
-    SECRET_KEY = "UAXpxgekKf7reqOqHwKPTnJfBwJtA0bd6HkvOiLmGiMm7IAGskyaDpHrSS23OR/P"
+    SECRET_KEY = "UAXpxgekKf7reqOqHwKPTnJfBwJtA0bd6HkvOiLmGiMm7IAGdskyaDpHrSS23OR/P"
 
-    # 数据库的配置信息
+    # 数据库的配置信息d
     SQLALCHEMY_DATABASE_URI = "mysql://root:mysql@127.0.0.1:3306/flask04_db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
