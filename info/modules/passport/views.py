@@ -1,3 +1,4 @@
+from flask import abort
 from flask import current_app, jsonify
 from flask import make_response
 from flask import request
@@ -5,6 +6,7 @@ from flask import request
 from info import constants
 from info import redis_store
 from info.utils.captcha.captcha import captcha
+from info.utils.response_code import RET
 from . import passport_blu
 
 
@@ -13,12 +15,16 @@ def get_image_code():
     """获取图片验证码"""
 
     # 1.获取当前的图片编号id
-    code_id = request.args.get("code_id")
+    code_id = request.args.get("code_id", None)
+    # 2.判断是否有值
+    if not code_id:
+        return abort(403)
     # 2.生成验证码
     name, text, image = captcha.generate_captcha()
     try:
         # 保存当前生成的图片验证码内容
-        redis_store.setex("ImageCode_" + code_id, constants.IMAGE_CODE_REDIS_EXPIRES, text)
+        # redis_store.setex("ImageCode_" + code_id, constants.IMAGE_CODE_REDIS_EXPIRES, text)
+        redis_store.setex('ImageCode_'+code_id, constants.IMAGE_CODE_REDIS_EXPIRES, text)
     except Exception as e:
         current_app.logger.error(e)
         return make_response(jsonify(errno=RET.DATAERR, errmsg="保存图片验证码失败"))
@@ -27,3 +33,5 @@ def get_image_code():
     # 设置内容类型
     resp.headers["Content-Type"] = "image/jpg"
     return resp
+
+
